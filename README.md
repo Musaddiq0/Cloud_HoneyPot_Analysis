@@ -1,3 +1,4 @@
+
 # Setting-Up and Analysis of Cloud-based Honey Pot
 
 ## Why a Honey Pot?
@@ -181,4 +182,28 @@ Starting with the dashboard we can see that the vast majority of attacks picked 
 
 <img src="screenshots/Screenshot 2024-08-21 at 19.55.40.png">
 
-At the macro level this information is interesting. However, blocking IP addresses is like playing whack-a-mole. David Bianco’s Pyramid of Pain identifies that it is trivial for a malicious actor to overcome blocking IP addresses. The value of Dionaea and other honeypot tools is the ability to collect malware samples. This will allow us to conduct malware analysis and build rules and detections/alerts on the malware behavior.
+At the macro level this information is interesting. However, blocking IP addresses is like playing whack-a-mole. David Bianco’s Pyramid of Pain identifies that it is trivial for a malicious actor to overcome blocking IP addresses. The value of Dionaea and other honeypot tools is the ability to collect malware samples. This will allow us to conduct malware analysis and build rules and detections/alerts on the malware behavior. 
+
+To retrieve the malware we need to ssh into the T-Pot server over port 64295. The path to the malware samples is /tpotce/data/dionaea/binaries.
+
+As seen below there was only one unique malware samples collected. To quickly triage the sample we can run the hashe in VirusTotal. As seen below it was identified as being malicious. In fact, it was WannaCry, which should not be surprising considering that the majority of the attacks were attempting to abuse SMB. WannaCry uses the leaked NSA exploit EternalBlue to abuse SMB.
+
+<img src="screenshots/Screenshot 2024-08-21 at 21.34.56.png">
+
+We can recover the malware samples by using the SCP protocol. If we are using Linux or a Mac we can run SCP from the terminal. On a Windows system you can use the GUI tool WinSCP. However, the most secure way to move the malware samples is to zip and password protect them. This can be done via ssh, but you must install zip on the T-Pot server with the command below:
+
+```go
+sudo apt install zip
+```
+You can zip and password protect the file by using the command below:
+
+```go
+sudo zip -e archive_name.zip file_to_zip
+```
+
+Replace archive_name.zip with the desired name for your zip file and file_to_zip with the name of the file you want to zip and protect. You will be prompted to enter and verify a password.
+
+After zipping both files you can safely move them to your malware analysis machine using WinSCP.
+
+
+You can now conduct malware analysis on the two malware samples.
