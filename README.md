@@ -207,3 +207,51 @@ After zipping both files you can safely move them to your malware analysis machi
 
 
 You can now conduct malware analysis on the two malware samples.
+
+The next important data from this honeypot is Cowrie is explain above. 
+
+# Cowrie
+
+Cowrie is a well-known open-source honeypot designed to emulate SSH and Telnet services, allowing researchers and security professionals to capture and analyze unauthorized access attempts.
+
+### Features and Capabilities
+
+1. **SSH and Telnet Emulation**:
+    - **SSH**: Secure Shell protocol emulation, capturing login attempts and commands executed by attackers.
+    - **Telnet**: Emulates Telnet services, which are still used in some legacy systems, attracting a different set of attackers.
+2. **Session Logging**:
+    - **Command Logging**: Records all commands entered by attackers, providing insights into their actions and intentions.
+    - **Interactive Session Logging**: Captures entire interactive sessions, which can be replayed for analysis.
+3. **File System Emulation**:
+    - **Virtual File System**: Emulates a fake file system that attackers can interact with, containing fake files and directories.
+    - **File Download and Upload**: Captures files downloaded and uploaded by attackers, aiding in malware analysis.
+4. **Credential Harvesting**:
+    - Logs all credentials (usernames and passwords) used in login attempts, which can be useful for understanding commonly used credentials and attack patterns.
+
+### Bottom Line
+
+Cowrie is a powerful tool in the cybersecurity toolkit, offering detailed insights into unauthorized access attempts and attacker behavior. It helps security professionals and researchers enhance their understanding of threats and improve overall security posture.
+
+## Analysis
+
+The Cowrie dashboard provides a macro-level characterization of the SSH and Telnet attacks. This includes the number and type of attacks, as well as where the attacks are coming from.
+
+<img src="screenshots/Screenshot 2024-08-24 at 16.07.33.png">
+
+Additionally, it includes the top user names and passwords attempted during the attacks, as well as the command line inputs used during the attack.
+
+<img src="screenshots/Screenshot 2024-08-24 at 16.09.03.png">
+
+Once again, the dashboard provides a high level view of activity. We can dig deeper by using the Discover and Visualization features of Kibana.
+
+In the Discover feature we can filter for Cowrie logs and the input field, which includes the command line inputs. The results show what commands the attacker ran from the CLI.
+
+<img src="screenshots/Screenshot 2024-08-24 at 16.15.46.png">
+
+By using the Visualization feature we can build a table that shows the unique commands that were ran and the number of times they were ran.
+
+<img src="screenshots/Screenshot 2024-08-24 at 16.26.24.png">
+
+### Downloaded Malware
+
+Additionally, if any files were downloaded to the honeypot, we can retrieve those by using SSH to the server, similar to the way we previously did with Dionaea. The path to the Cowrie downloads is tpotce/data/cowrie/downloads.
