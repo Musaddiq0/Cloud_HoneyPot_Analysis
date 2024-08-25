@@ -255,3 +255,119 @@ By using the Visualization feature we can build a table that shows the unique co
 ### Downloaded Malware
 
 Additionally, if any files were downloaded to the honeypot, we can retrieve those by using SSH to the server, similar to the way we previously did with Dionaea. The path to the Cowrie downloads is tpotce/data/cowrie/downloads.
+
+<img src="screenshots/Screenshot 2024-08-25 at 14.26.39.png">
+
+# Heralding
+
+Heralding is a unique and specialized open-source honeypot designed primarily to act as a credentials logging service for various protocols. It is particularly effective for capturing and analyzing login attempts across multiple services.
+
+### Features and Capabilities
+
+1. **Protocol Emulation**:
+    - **SSH**: Secure Shell protocol, capturing credentials used in SSH login attempts.
+    - **Telnet**: Captures login attempts and credentials used with the Telnet protocol.
+    - **FTP**: File Transfer Protocol, logging login attempts and credentials.
+    - **HTTP/HTTPS**: Captures credentials submitted through basic and digest authentication methods.
+    - **SMTP**: Simple Mail Transfer Protocol, logging login attempts for email servers.
+    - **POP3**: Post Office Protocol, capturing email access credentials.
+    - **IMAP**: Internet Message Access Protocol, capturing credentials used for accessing email.
+    - **VNC**: Virtual Network Computing, capturing login attempts and credentials.
+
+2. **Credential Logging**:
+    - Logs all credentials (usernames and passwords) attempted across various protocols.
+    - Provides detailed information about the source of the login attempts, including IP addresses and timestamps.
+
+### Use Cases
+
+1. **Credential Harvesting**:
+    - Ideal for environments where capturing and analyzing login attempts and credentials is crucial.
+    - Helps in understanding common credentials used by attackers and identifying weak passwords.
+2. **Threat Intelligence**:
+    - Provides valuable data on login attempts, helping to identify patterns in attacks and common sources of credential-based attacks.
+    - Useful for developing threat intelligence and improving defensive measures against credential stuffing and brute force attacks.
+
+3. **Network Security Monitoring**:
+    - Deployed in networks to detect and log unauthorized access attempts.
+    - Acts as an early warning system by capturing credentials used in attempted logins, allowing for proactive responses.
+    
+    Heralding is a powerful and specialized honeypot tool that offers focused logging of credentials across multiple protocols. Its lightweight design and detailed logging capabilities make it an excellent choice for organizations looking to improve their understanding of credential-based attacks and enhance their overall security posture.
+
+## Analysis
+
+The dashboard provides the number of attacks and where they originated.
+
+<img src="screenshots/Screenshot 2024-08-25 at 16.59.16.png">
+
+Additionally, it shows the protocol, username and password attempted. 
+
+<img src="screenshots/Screenshot 2024-08-25 at 16.59.53.png">
+
+# Ciscoasa
+
+The Cisco ASA (Adaptive Security Appliance) module in T-Pot is designed to emulate a Cisco ASA firewall, providing a high-interaction honeypot environment to attract and analyze attacks targeting this specific type of network device. T-Pot is a comprehensive honeypot platform that integrates multiple honeypot technologies, and the inclusion of the Cisco ASA module enhances its capability to mimic real-world enterprise environments.
+
+### Features and Capabilities
+
+1. **Emulation of Cisco ASA Firewall**:
+    - **Command Execution**: Emulates the command-line interface (CLI) of a Cisco ASA firewall, allowing attackers to interact with it as they would with a real device.
+    - **Configuration Simulation**: Provides a realistic environment where attackers can attempt to view or modify firewall configurations.
+2. **Logging and Analysis**:
+    - **Command Logging**: Records all commands entered by attackers, capturing their actions and methodologies.
+    - **Session Logging**: Logs entire interactive sessions, which can be replayed for detailed analysis.
+3. **Credential Capture**:
+    - Captures credentials (usernames and passwords) used in login attempts, providing insights into common passwords and credential-based attack patterns.
+4. **High-Interaction Environment**:
+    - Offers a high-interaction environment that closely mimics a real Cisco ASA firewall, increasing the likelihood of capturing sophisticated attack techniques and behaviors.
+5. **Integration with T-Pot**:
+    - Seamlessly integrates with the T-Pot platform, benefiting from its centralized logging, analysis, and visualization capabilities.
+    - Contributes to the overall threat intelligence gathered by the T-Pot ecosystem, enriching the data available for analysis.
+
+### Use Cases
+
+1. **Research and Analysis**:
+    - Security researchers use the Cisco ASA module to study attack techniques and tactics targeting Cisco ASA firewalls.
+    - Provides a platform for analyzing how attackers attempt to exploit firewall vulnerabilities or misconfigurations.
+2. **Threat Intelligence**:
+    - Contributes valuable data to threat intelligence efforts by capturing and analyzing real-world attacks.
+    - Helps in identifying emerging threats and attack trends targeting enterprise network security devices.
+3. **Network Security Monitoring**:
+    - Deployed within enterprise networks to detect and log unauthorized access attempts on firewall devices.
+    - Acts as a decoy to divert attackers from actual critical infrastructure, reducing the risk of successful breaches.
+
+
+### Benefits
+
+- **Realistic Emulation**: Provides a realistic simulation of a Cisco ASA firewall, increasing the attractiveness to attackers and the quality of captured data.
+- **Comprehensive Logging**: Offers detailed logging of attacker interactions, aiding in the thorough analysis of attack techniques and behaviors.
+- **Enhanced Security Posture**: By attracting and analyzing attacks on emulated firewalls, organizations can improve their understanding of threats and enhance their defensive measures.
+
+The Cisco ASA module in T-Pot is a valuable tool for security researchers and organizations aiming to study and defend against attacks targeting Cisco ASA firewalls. Its realistic emulation and integration with the T-Pot platform make it a powerful component in a comprehensive honeypot strategy.
+
+## Analysis
+
+The dashboard provides the same type of information as previously discussed dashboards, with the major exception that these attacks are targeting Cisco ASA firewalls.
+
+<img src="screenshots/Screenshot 2024-08-25 at 17.10.58.png">
+
+### HoneyTrap
+
+The honeytrap module of T-Pot is designed to detect, monitor, and analyze malicious activities and intrusions. Here’s a detailed overview of what the honeytrap module does:
+
+### Functionality
+
+1. **Network Traffic Capture**: The honeytrap module listens to network traffic directed at the honeypot, capturing data packets that interact with the system.
+2. **Service Emulation**: It emulates various services and protocols to appear as a legitimate system, thereby attracting attackers. This can include common services like SSH, HTTP, FTP, etc.
+3. **Logging and Alerting**: The module logs all interactions, including connection attempts and the types of attacks. Alerts can be generated based on predefined rules or behaviors.
+4. **Behavioral Analysis**: It analyzes the behavior of the attackers, such as commands executed, tools used, and methods of exploitation.
+5. **Data Collection**: The collected data can be used for further forensic analysis, helping security professionals understand attack patterns and techniques.
+6. **Deception**: By providing a false environment, it misleads attackers into thinking they have found a real target, which helps in identifying and analyzing their methods without compromising actual systems.
+
+### Benefits
+
+- **Threat Intelligence**: Provides insights into current attack trends and techniques.
+- **Early Detection**: Helps in early detection of malicious activities targeting the network.
+- **Research and Development**: Aids in developing better security measures by understanding attacker behavior.
+- **Incident Response**: Improves incident response strategies through detailed logs and analysis.
+
+In summary, the honeytrap module of T-Pot serves as a proactive defense mechanism, luring attackers into a controlled environment to gather valuable intelligence and improve overall network security.
