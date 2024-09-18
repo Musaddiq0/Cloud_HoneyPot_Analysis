@@ -3,8 +3,6 @@
 
 ## Why a Honey Pot?
 
-A cybersecurity researcher sets up a **honeypot** for several critical reasons to improve security, gain insights into threat actors, and enhance overall cybersecurity knowledge:
-
 1. **Threat Intelligence Gathering**: Honeypots capture detailed information about attack patterns and help identify new threats.
    
 2. **Malware Collection and Analysis**: They collect and analyze malware samples, allowing for reverse engineering to understand their behavior and impact.
@@ -23,6 +21,7 @@ A cybersecurity researcher sets up a **honeypot** for several critical reasons t
 
 ### Bottom Line:
 Honeypots are essential tools that provide researchers with real-world data on cyber threats, enhancing their ability to defend against attacks and share knowledge across the cybersecurity ecosystem.
+
 For this project is decided to use Linode as the cloud service provider to setup a server to host the Honey-pot on. 
 
 ### Step 1: Create a Linode Account
@@ -154,7 +153,7 @@ Since I am interested in malware, the first honeypot tool we will analyze is fro
 
 Starting with the dashboard we can see that the vast majority of attacks picked up by Dionaea are abusing the SMB protocol. The majority of the attacks originated within the United States and were from known attackers.
 
-<img src="screenshots/Dionaea dashboard.png">
+<img src="screenshots/Screenshot 2024-08-21 at 19.55.40.png">
 
 At the macro level this information is interesting. However, blocking IP addresses is like playing whack-a-mole. David Bianco’s Pyramid of Pain identifies that it is trivial for a malicious actor to overcome blocking IP addresses. The value of Dionaea and other honeypot tools is the ability to collect malware samples. This will allow us to conduct malware analysis and build rules and detections/alerts on the malware behavior. 
 
@@ -162,7 +161,7 @@ To retrieve the malware we need to ssh into the T-Pot server over port 64295. Th
 
 As seen below there was only one unique malware samples collected. To quickly triage the sample we can run the hashe in VirusTotal. As seen below it was identified as being malicious. In fact, it was WannaCry, which should not be surprising considering that the majority of the attacks were attempting to abuse SMB. WannaCry uses the leaked NSA exploit EternalBlue to abuse SMB.
 
-<img src="screenshots/virustotal check.png">
+<img src="screenshots/Screenshot 2024-08-21 at 21.34.56.png">
 
 We can recover the malware samples by using the SCP protocol. If we are using Linux or a Mac we can run SCP from the terminal. On a Windows system you can use the GUI tool WinSCP. However, the most secure way to move the malware samples is to zip and password protect them. This can be done via ssh, but you must install zip on the T-Pot server with the command below:
 
@@ -181,7 +180,6 @@ After zipping both files you can safely move them to your malware analysis machi
 
 
 You can now conduct malware analysis on the two malware samples.
-<img src="screenshots/malware hash analysis.png">
 
 The next important data from this honeypot is Cowrie is explain above. 
 
@@ -211,27 +209,27 @@ Cowrie is a powerful tool in the cybersecurity toolkit, offering detailed insigh
 
 The Cowrie dashboard provides a macro-level characterization of the SSH and Telnet attacks. This includes the number and type of attacks, as well as where the attacks are coming from.
 
-<img src="screenshots/cowrie dashboard.png">
+<img src="screenshots/Screenshot 2024-08-24 at 16.07.33.png">
 
 Additionally, it includes the top user names and passwords attempted during the attacks, as well as the command line inputs used during the attack.
 
-<img src="screenshots/cowrie data.png">
+<img src="screenshots/Screenshot 2024-08-24 at 16.09.03.png">
 
 Once again, the dashboard provides a high level view of activity. We can dig deeper by using the Discover and Visualization features of Kibana.
 
 In the Discover feature we can filter for Cowrie logs and the input field, which includes the command line inputs. The results show what commands the attacker ran from the CLI.
 
-<img src="screenshots/kibana cowrie attack .png">
+<img src="screenshots/Screenshot 2024-08-24 at 16.15.46.png">
 
 By using the Visualization feature we can build a table that shows the unique commands that were ran and the number of times they were ran.
 
-<img src="screenshots/cowrie attack table.png">
+<img src="screenshots/Screenshot 2024-08-24 at 16.26.24.png">
 
 ### Downloaded Malware
 
 Additionally, if any files were downloaded to the honeypot, we can retrieve those by using SSH to the server, similar to the way we previously did with Dionaea. The path to the Cowrie downloads is tpotce/data/cowrie/downloads.
 
-<img src="screenshots/malware downlaod evidences.png">
+<img src="screenshots/Screenshot 2024-08-25 at 14.26.39.png">
 
 # Heralding
 
@@ -272,11 +270,11 @@ Heralding is a unique and specialized open-source honeypot designed primarily to
 
 The dashboard provides the number of attacks and where they originated.
 
-<img src="screenshots/Heralding dashboard.png">
+<img src="screenshots/Screenshot 2024-08-25 at 16.59.16.png">
 
 Additionally, it shows the protocol, username and password attempted. 
 
-<img src="screenshots/heralding protocol.png">
+<img src="screenshots/Screenshot 2024-08-25 at 16.59.53.png">
 
 # Ciscoasa
 
@@ -323,7 +321,7 @@ The Cisco ASA module in T-Pot is a valuable tool for security researchers and or
 
 The dashboard provides the same type of information as previously discussed dashboards, with the major exception that these attacks are targeting Cisco ASA firewalls.
 
-<img src="screenshots/ciscoasa dashboard.png">
+<img src="screenshots/Screenshot 2024-08-25 at 17.10.58.png">
 
 ### HoneyTrap
 
