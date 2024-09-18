@@ -3,51 +3,24 @@
 
 ## Why a Honey Pot?
 
-A cybersecurity researcher might set up a honeypot for several key reasons, which all contribute to improving security measures, gaining insights into threat actors, and enhancing overall cybersecurity knowledge. Here’s a detailed look at why a cybersecurity researcher would deploy a honeypot:
+1. **Threat Intelligence Gathering**: Honeypots capture detailed information about attack patterns and help identify new threats.
+   
+2. **Malware Collection and Analysis**: They collect and analyze malware samples, allowing for reverse engineering to understand their behavior and impact.
 
-### 1. **Threat Intelligence Gathering**
+3. **Understanding Attacker Behavior**: Researchers can observe attacker techniques and credential use, gaining insights into their methods and decision-making.
 
-- **Understanding Attack Patterns**: Honeypots can capture detailed information about attack methods, tools, and tactics used by threat actors. This data helps researchers understand how attacks are executed and evolve over time.
-- **Identifying New Threats**: By attracting and logging malicious activity, honeypots can identify new or emerging threats that might not yet be widely known or documented.
+4. **Improving Defensive Measures**: Data from honeypots enhances intrusion detection systems (IDS/IPS) and aids in developing security policies and countermeasures.
 
-### 2. **Malware Collection and Analysis**
+5. **Training and Education**: Honeypots provide real-world scenarios for hands-on learning without risking actual systems.
 
-- **Capturing Malware Samples**: Honeypots can collect various types of malware, including viruses, worms, ransomware, and other malicious software. Researchers can analyze these samples to understand their behavior, propagation methods, and potential impacts.
-- **Reverse Engineering**: Analyzing the malware's code can provide insights into its functionality and objectives, helping develop detection and mitigation strategies.
+6. **Forensic Analysis**: They offer valuable forensic data for incident response and can sometimes serve as legal evidence.
 
-### 3. **Understanding Attacker Behavior**
+7. **Vulnerability Research**: Honeypots help identify system weaknesses and capture zero-day exploits.
 
-- **Behavioral Analysis**: By observing how attackers interact with the honeypot, researchers can gain insights into their motives, techniques, and decision-making processes.
-- **Credential Use**: Logging attempts to use stolen or guessed credentials can provide information on common password patterns and the effectiveness of different authentication mechanisms.
+8. **Enhancing Threat Sharing**: Honeypot data can be shared with the cybersecurity community, contributing to collaborative defense and threat intelligence feeds.
 
-### 4. **Improving Defensive Measures**
-
-- **Enhancing Detection Systems**: Data collected from honeypots can be used to improve intrusion detection and prevention systems (IDS/IPS) by creating more accurate and comprehensive signatures.
-- **Developing Countermeasures**: Insights gained from honeypot activity can inform the development of security policies, patches, and other countermeasures to protect real systems.
-
-### 5. **Training and Education**
-
-- **Real-World Scenarios**: Honeypots provide a controlled environment for security professionals and students to observe and analyze real-world attacks without risking actual systems.
-- **Hands-On Experience**: Working with honeypots allows researchers and security teams to gain hands-on experience in detecting, analyzing, and responding to cyber threats.
-
-### 6. **Forensic Analysis**
-
-- **Incident Response**: Honeypots can be used to study the aftermath of an attack, providing valuable forensic data that can be used to reconstruct the attack timeline and understand the attacker’s methods.
-- **Legal Evidence**: In some cases, data from honeypots can be used as evidence in legal proceedings against cybercriminals.
-
-### 7. **Vulnerability Research**
-
-- **Identifying Weaknesses**: Honeypots can be configured to mimic specific systems or applications to identify and analyze vulnerabilities that attackers are exploiting.
-- **Zero-Day Exploits**: By attracting advanced attackers, honeypots can sometimes capture zero-day exploits that are not yet known to the public or vendors.
-
-### 8. **Enhancing Threat Sharing**
-
-- **Collaborative Defense**: Data and insights from honeypots can be shared with the broader cybersecurity community, enhancing collective defense efforts against common threats.
-- **Threat Feeds**: Honeypot data can be integrated into threat intelligence feeds, providing up-to-date information on malicious IP addresses, domains, and attack patterns.
-
-### Bottom Line
-
-Honeypots are valuable tools for cybersecurity threat researchers, providing rich, real-world data on cyber threats and attacker behaviors. By deploying honeypots, researchers can enhance their understanding of the threat landscape, improve defensive measures, and contribute to the broader cybersecurity community.
+### Bottom Line:
+Honeypots are essential tools that provide researchers with real-world data on cyber threats, enhancing their ability to defend against attacks and share knowledge across the cybersecurity ecosystem.
 
 For this project is decided to use Linode as the cloud service provider to setup a server to host the Honey-pot on. 
 
@@ -180,7 +153,7 @@ Since I am interested in malware, the first honeypot tool we will analyze is fro
 
 Starting with the dashboard we can see that the vast majority of attacks picked up by Dionaea are abusing the SMB protocol. The majority of the attacks originated within the United States and were from known attackers.
 
-<img src="screenshots/Dionaea dashboard.png">
+<img src="screenshots/Screenshot 2024-08-21 at 19.55.40.png">
 
 At the macro level this information is interesting. However, blocking IP addresses is like playing whack-a-mole. David Bianco’s Pyramid of Pain identifies that it is trivial for a malicious actor to overcome blocking IP addresses. The value of Dionaea and other honeypot tools is the ability to collect malware samples. This will allow us to conduct malware analysis and build rules and detections/alerts on the malware behavior. 
 
@@ -188,7 +161,7 @@ To retrieve the malware we need to ssh into the T-Pot server over port 64295. Th
 
 As seen below there was only one unique malware samples collected. To quickly triage the sample we can run the hashe in VirusTotal. As seen below it was identified as being malicious. In fact, it was WannaCry, which should not be surprising considering that the majority of the attacks were attempting to abuse SMB. WannaCry uses the leaked NSA exploit EternalBlue to abuse SMB.
 
-<img src="screenshots/virustotal check.png">
+<img src="screenshots/Screenshot 2024-08-21 at 21.34.56.png">
 
 We can recover the malware samples by using the SCP protocol. If we are using Linux or a Mac we can run SCP from the terminal. On a Windows system you can use the GUI tool WinSCP. However, the most secure way to move the malware samples is to zip and password protect them. This can be done via ssh, but you must install zip on the T-Pot server with the command below:
 
@@ -207,7 +180,6 @@ After zipping both files you can safely move them to your malware analysis machi
 
 
 You can now conduct malware analysis on the two malware samples.
-<img src="screenshots/malware hash analysis.png">
 
 The next important data from this honeypot is Cowrie is explain above. 
 
@@ -237,27 +209,27 @@ Cowrie is a powerful tool in the cybersecurity toolkit, offering detailed insigh
 
 The Cowrie dashboard provides a macro-level characterization of the SSH and Telnet attacks. This includes the number and type of attacks, as well as where the attacks are coming from.
 
-<img src="screenshots/cowrie dashboard.png">
+<img src="screenshots/Screenshot 2024-08-24 at 16.07.33.png">
 
 Additionally, it includes the top user names and passwords attempted during the attacks, as well as the command line inputs used during the attack.
 
-<img src="screenshots/cowrie data.png">
+<img src="screenshots/Screenshot 2024-08-24 at 16.09.03.png">
 
 Once again, the dashboard provides a high level view of activity. We can dig deeper by using the Discover and Visualization features of Kibana.
 
 In the Discover feature we can filter for Cowrie logs and the input field, which includes the command line inputs. The results show what commands the attacker ran from the CLI.
 
-<img src="screenshots/kibana cowrie attack .png">
+<img src="screenshots/Screenshot 2024-08-24 at 16.15.46.png">
 
 By using the Visualization feature we can build a table that shows the unique commands that were ran and the number of times they were ran.
 
-<img src="screenshots/cowrie attack table.png">
+<img src="screenshots/Screenshot 2024-08-24 at 16.26.24.png">
 
 ### Downloaded Malware
 
 Additionally, if any files were downloaded to the honeypot, we can retrieve those by using SSH to the server, similar to the way we previously did with Dionaea. The path to the Cowrie downloads is tpotce/data/cowrie/downloads.
 
-<img src="screenshots/malware downlaod evidences.png">
+<img src="screenshots/Screenshot 2024-08-25 at 14.26.39.png">
 
 # Heralding
 
@@ -298,11 +270,11 @@ Heralding is a unique and specialized open-source honeypot designed primarily to
 
 The dashboard provides the number of attacks and where they originated.
 
-<img src="screenshots/Heralding dashboard.png">
+<img src="screenshots/Screenshot 2024-08-25 at 16.59.16.png">
 
 Additionally, it shows the protocol, username and password attempted. 
 
-<img src="screenshots/heralding protocol.png">
+<img src="screenshots/Screenshot 2024-08-25 at 16.59.53.png">
 
 # Ciscoasa
 
@@ -349,7 +321,7 @@ The Cisco ASA module in T-Pot is a valuable tool for security researchers and or
 
 The dashboard provides the same type of information as previously discussed dashboards, with the major exception that these attacks are targeting Cisco ASA firewalls.
 
-<img src="screenshots/ciscoasa dashboard.png">
+<img src="screenshots/Screenshot 2024-08-25 at 17.10.58.png">
 
 ### HoneyTrap
 
